@@ -18,6 +18,7 @@ prompt = PromptTemplate(
 llm = ChatOpenAI(model_name=MODEL_NAME, temperature=TEMPERATURE)
 embedding = OpenAIEmbeddings(model=EMBEDDING_MODEL)
 vectorstore = FAISS.load_local(VECTOR_STORE_PATH, embedding,allow_dangerous_deserialization=True)
+
 retriever = vectorstore.as_retriever()
 memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
 rag_chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever, memory=memory,
